@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reclamações - Reclame Aki Estácio</title>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+    <h1>Área de Reclamações</h1>
+    
+    <section id="nova-reclamacao">
+        <h2>Registrar Nova Reclamação</h2>
+        <form id="form-reclamacao" onsubmit="return registrarReclamacao(event)">
+            <label for="area">Escolha a Área:</label>
+            <select id="area" name="area" required>
+                <option value="" disabled selected>Selecione a área</option>
+                <option value="seguranca">Segurança</option>
+                <option value="coordenadores">Coordenadores</option>
+                <option value="professores">Professores</option>
+                <option value="administracao">Administração de Aula</option>
+                <option value="eventos">Eventos</option>
+            </select>
+
+            <label for="reclamacao">Digite sua reclamação:</label>
+            <textarea id="reclamacao" name="reclamacao" required></textarea>
+            <button type="submit">Enviar Reclamação</button>
+        </form>
+    </section>
+
+    <script>
+        function registrarReclamacao(event) {
+            event.preventDefault();
+
+            const areaInput = document.getElementById('area');
+            const reclamacaoInput = document.getElementById('reclamacao');
+            const area = areaInput.value;
+            const reclamacao = reclamacaoInput.value;
+
+            const reclamacoes = JSON.parse(localStorage.getItem('reclamacoes')) || [];
+            reclamacoes.push({ area, reclamacao }); 
+
+            localStorage.setItem('reclamacoes', JSON.stringify(reclamacoes));
+
+            window.location.href = 'todas-reclamacoes.html';
+        }
+    </script>
+
+    <section id="lista-reclamacoes">
+        <h2>Reclamações Abertas</h2>
+        <ul>
+            <li>Reclamação de Exemplo - Status: Aberta</li>
+        </ul>
+
+        <h2>Reclamações Resolvidas</h2>
+        <ul>
+            <li>Reclamação Resolvida de Exemplo - Status: Resolvida</li>
+        </ul>
+    </section>
+</body>
+</html>
